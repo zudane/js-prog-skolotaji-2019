@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="lv">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../../styles.css">
+    <script type="text/javascript" >
+      var masivs = [];
+      function init() {                                   // Inicializācijas funkcija, kas pievieno root div elementam jaunu rezultātu div elementu
+        let root = document.getElementById("root");       // Atrod elementu, kuram id ir 'root' un pievieno to mainīgajam
+        let div = document.createElement("DIV");          // Izveido jaunu div elementu un piesaista to mainīgajam
+        div.setAttribute("id", "result");                 // Iepriekš izveidotajam div elementam pievieno id atribūtu 'result'
+        div.innerHTML = JSON.stringify(masivs);           // Iepriekš izveidotajā div elementā ievieto masīvu
+        root.appendChild(div);                            // Pievieno iepriekš izveidoto div elementu, iepriekš atrastajam 'root' elementam
+      }
+      function pievienot() {                                                  // Vērtības pievienošanas masīva beigām funkcija
+        let value = document.getElementById("pievienot_vertiba").value;       // Atrod dokumentā elementu ar norādīto id, iegūst tā vērtību un pievieno mainīgajam
+        if (value) {                                                          // Pārbaude vai input laukā vispār tika ievadīta vērtība
+          masivs.push(value);                                                 // Ja ir ievadīta vērtība, tad tā tiek pievienota masīva beigās
+        }                                                                     //
+        render();                                                             // Tiek izsaukta render() funkcija, kas atjauno izprintēto masīvu
+      }
+      function nonemt() {               // Vērtības noņemšanas no masīva beigām funkcija
+        if (masivs.length > 0) {        // Pārbaude vai masīvā ir vismaz viens elements
+          masivs.pop();                 // Ja ir vismaz viens elements, tad noņem no masīva beigām vienu elementu
+        }                               //
+        render();                       // Tiek izsaukta render() funkcija, kas atjauno izprintēto masīvu
+      }
+      function render() {                               // Masīva printēšanas funkcija
+        let div = document.getElementById("result");    // Iegūst HTML elementu ar id 'result' un pievieno to mainīgajam
+        div.innerHTML = JSON.stringify(masivs);         // Atrastajā elementā ievieto masīvu
+      }
+      function pievienotAizIndeksa() {                                                // Vērtības pievienošanas masīvam aiz norādītā indeksa funkcija
+        let index = Number(document.getElementById("pievienot_indekss").value) + 1;   // Iegūst vērtību no ievadlauka ar norādīto id, katram gadījumam to pārvērš par skaitļa tipu un palielina šo vērtību ( +1 ) un pievieno mainīgajam
+        let value = document.getElementById("pievienot_indekss_vertiba").value;       // Iegūst vērtību no ievadlauka ar norādīto id un pievieno mainīgajam
+        if (index <= masivs.length && index >= 0) {                                   // Pārbaude vai indekss ir mazāks vai vienāds ar masīva garumu un vai indekss ir lielāks vai vienāds ar nulli
+          masivs.splice(index, 0, value);                                             // Masīvā tiek izmainīts 'index' elements, šis elements netiek dzēsts ( uz to norāda 0 ), bet gan tiek pievienota tam PRIEKŠĀ jaunā vērtība 'value'
+        }                                                                             // Tāpēc funkcijas sākumā pie iegūtā indeksa tika pieskaitīts +1. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+        render();                                                                     // Tiek izsaukta render() funkcija, kas atjauno izprintēto masīvu
+      }
+      function nonemtPecIndeksa() {                                                   // Norādītā indeksā esošās vērtības noņemšanas no masīva funkcija
+        let index = Number(document.getElementById("nonemt_indekss").value);          // Iegūst vērtību no ievadlauka ar norādīto id un katram gadījumam to pārvērš par skaitļa tipu un pievieno mainīgajam
+        if (index <= masivs.length && index >= 0) {                                   // Pārbaude vai indekss ir mazāks vai vienāds ar masīva garumu un vai indekss ir lielāks vai vienāds ar nulli
+          masivs.splice(index, 1);                                                    // Masīvā tiek dzēsts index elements, uz ko norāda skaitlis 1.
+        }                                                                             // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+        render();                                                                     // Tiek izsaukta render() funkcija, kas atjauno izprintēto masīvu
+      }
+    </script>
+  </head>
+  <body onload="init()" class="container">
+    <div id="task">
+      <h1>Manipulācijas ar masīvu</h1>
+      <ol>
+        <li>Izveidot funkciju, kura pievienos vērtību masīva beigās</li>
+        <li>Izveidot funkciju, kura izņems vērtību no masīva beigām</li>
+        <li>Izveidot funkciju, kura izdrukās visu masīvu kā HTML DOM elementu</li>
+        <li>Izveidot funkciju, kura iestarpinās jaunu elementu masīvā pēc norādītā indeksa</li>
+        <li>Izveidot funkciju, kura izņems elementu no masīva pēc norādītā indeksa</li>
+      </ol>
+    </div>
+    <div id="root" class="row justify-content-center">
+      <div class="row justify-content-center">
+        <div class="col-sm-12 label">Pievienot vērtību</div>
+        <input class="col-md-5 form-control" id="pievienot_vertiba" class="col-lg-5 form-control" type="text" value="0"/>
+        <button class="col-md-3 btn btn-success" onClick="pievienot()">Pievienot</button>
+        <button class="col-md-3 btn btn-danger" onClick="nonemt()">Noņemt</button>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-sm-12 label">Pievienot vērtību aiz norādītā indeksa</div>
+        <input class="col-md-4 form-control" id="pievienot_indekss" class="" type="number" placeholder="indekss"/>
+        <input class="col-md-4 form-control" id="pievienot_indekss_vertiba" type="text" placeholder="vērtība"/>
+        <button class="col-md-3 btn btn-success" onClick="pievienotAizIndeksa()">Pievienot</button>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-sm-12 label">Noņemt vērtību norādītajā indeksā</div>
+        <input class="col-md-8 form-control" id="nonemt_indekss" type="number" placeholder="indekss"/>
+        <button class="col-md-3 btn btn-danger" onClick="nonemtPecIndeksa()">Noņemt</button>
+      </div>
+    </div>
+    <div id="info">
+      <h3>Noderīgas saites</h3>
+      <ul>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" target="_new">MDN Masīvi</a></li>
+        <li><a href="https://www.w3schools.com/js/js_arrays.asp" target="_new">w3s masīvi</a></li>
+        <li><a href="https://www.w3schools.com/js/js_array_methods.asp" target="_new">w3s masīvu metodes</a></li>
+      </ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
