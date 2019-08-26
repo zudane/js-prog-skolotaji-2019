@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="lv">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../../styles.css">
+    <script type="text/javascript" >
+      class FormGenerator {       // Klases deklarešana ar nosaukumu 'FormGenerator'
+        rowIndex = 0;
+
+        init() {        // Funkciju priekšā NAV jāraksta function, jo šīs ir klases metodes
+          let root = document.getElementById("root");
+          let button = document.createElement("button");
+          let form = document.createElement("form");
+          let div = document.createElement("div");
+          this.setAttributes(button, {"onClick": "formGenerator.pievienotRindu()", "class": "col-md-5 btn btn-success"});       // Tiek izmantots this, jo setAttributes ir šīs klases metode
+          button.innerHTML = "Pievienot rindu";
+          form.setAttribute("id", "forma");
+          div.setAttribute("id", "result");
+          root.appendChild(button);
+          root.appendChild(form);
+          root.appendChild(div);
+        }
+
+        pievienotRindu() {
+          let form = document.getElementById("forma");
+          let div = document.createElement("div");
+          let input1 = document.createElement("input");
+          let input2 = document.createElement("input");
+          let btn = document.createElement("button");
+          this.setAttributes(div, {"id": "div-"+this.rowIndex, "class": "row justify-content-center"});                                                                           // Tiek izmantots this, jo setAttributes ir šīs klases metode un rowIndex ir mainīgais, kas eksistē klases ietvarā
+          this.setAttributes(input1, {"type": "text", "name": "atslega", "placeholder": "atslēga", "onchange": "formGenerator.render()", "class":"col-md-4 form-control"});       // Tiek izmantots this, jo setAttributes ir šīs klases metode
+          this.setAttributes(input2, {"type": "text", "name": "vertiba", "placeholder": "vertība", "onchange": "formGenerator.render()", "class":"col-md-4 form-control"});       // Tiek izmantots this, jo setAttributes ir šīs klases metode
+          this.setAttributes(btn, {"type": "button", "onclick": `formGenerator.nonemtRindu("div-${this.rowIndex}")`, "class":"col-md-3 btn btn-danger"});                         // Tiek izmantots this, jo setAttributes ir šīs klases metode un rowIndex ir mainīgais, kas eksistē klases ietvarā
+          btn.innerHTML = "Noņemt rindu";
+          div.appendChild(input1);
+          div.appendChild(input2);
+          div.appendChild(btn);
+          form.appendChild(div);
+          this.render();        // Tiek izmantots this, jo render ir šīs klases metode
+          this.rowIndex++;      // Tiek izmantots this, jo rowIndex ir mainīgais, kas eksistē klases ietvarā
+        }
+
+        nonemtRindu(id) {
+          let div = document.getElementById(id);
+          div.remove();
+          this.render();        // Tiek izmantots this, jo render ir šīs klases metode
+        }
+
+        setAttributes(element, attrs) {
+          for(var key in attrs) {
+            element.setAttribute(key, attrs[key]);
+          }
+        }
+
+        render() {
+          let keys = Array.prototype.slice.call(document.getElementsByName("atslega"));
+          let values = Array.prototype.slice.call(document.getElementsByName("vertiba"));
+          let div = document.getElementById("result");
+          let object = {};
+          for (let i = 0; i < keys.length; i++) {
+            object[keys[i].value] = values[i].value;
+          }
+          div.innerHTML = JSON.stringify(object);
+        }
+      }
+      var formGenerator = new FormGenerator();        // Tiek izveidota jauna klases instance, kura tiek piesaistīta formGenerator mainīgajam, un šis mainīgais var tikt izmantots, lai izsauktu metodes. Svarīgi, lai mainīgais būtu globāls jeb 'var'.
+    </script>
+  </head>
+  <body class="container" onload="formGenerator.init()">        <!-- Lai izsauktu init() metodi, priekšā ir jāpieliek klases instance, kas tika izveidota iepriekš -->
+    <div id="task">
+      <h1>Darbības ar DOM elementiem</h1>
+      <ol>
+        <li>pārveidot 4 uzdevuma risinājumu tā, lai tas izmantotu klasi ar metodēm nevis vienkārši funkcijas</li>
+      </ol>
+    </div>
+    <div id="root">
+    </div>
+    <div id="info">
+      <h3>Noderīgas saites</h3>
+      <ul>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_new">MDN Objekti</a></li>
+        <li><a href="https://www.w3schools.com/js/js_objects.asp" target="_new">w3s Objekti</a></li>
+      </ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
