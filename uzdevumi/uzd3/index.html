@@ -1,60 +1,115 @@
 <!DOCTYPE html>
 <html lang="lv">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta charset="utf8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../../styles.css">
-    
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta charset="utf8" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="../../styles.css" />
   </head>
   <body class="container">
     <div id="task">
       <h1>Manipulācijas ar objektiem</h1>
       <ol>
-        <li>Izveidot funkciju, kura pievienos jaunu atslēgu ar vērtību objektam</li>
-        <li>Izveidot funkciju, kura dzēsīs atslēgu (un tās vērtību) no objekta</li>
-        <li>Izveidot funkciju, kura izdrukās visas objekta atslēgas un to vērtības</li>
+        <li>
+          Izveidot funkciju, kura pievienos jaunu atslēgu ar vērtību objektam
+        </li>
+        <li>
+          Izveidot funkciju, kura dzēsīs atslēgu (un tās vērtību) no objekta
+        </li>
+        <li>
+          Izveidot funkciju, kura izdrukās visas objekta atslēgas un to vērtības
+        </li>
       </ol>
     </div>
-    <div id="root">
-    </div>
+    <div id="root"></div>
     <p>
-      Atslega<input class="col-md-3 form-control" id="atslega" type="text" value="vards" />
-      
+      Atslega<input
+        class="col-md-3 form-control"
+        id="atslega"
+        type="text"
+        value="vards"
+      />
     </p>
     <p>
-      Vertiba<input class="col-md-3 form-control" id="vertiba" type="text" value="Laila"/>
-      
+      Vertiba<input
+        class="col-md-3 form-control"
+        id="vertiba"
+        type="text"
+        value="Laila"
+      />
     </p>
     <p>
-      <button class="col-md-auto btn btn-success" onClick="pievienot()">Pievienot</button>
+      <button class="col-md-auto btn btn-success" onClick="pievienot()">
+        Pievienot
+      </button>
     </p>
     <p>
-        <button class="col-md-auto btn btn-success" onClick="dzest()">Noņemt</button>
-      </p>
+      <button class="col-md-auto btn btn-danger" onClick="dzest()">
+        Noņemt
+      </button>
+    </p>
+    <p>
+      <button class="col-md-auto btn btn-outline-warning" onClick="drukat()">
+        Drukāt
+      </button>
+    </p>
     <div id="info">
-        <script type="text/javascript" >
-          var objekts = {};
-          function pievienot(){
-            let at=document.getElementById("atslega").value;
-            let ve=document.getElementById("vertiba").value;
-            objekts[at]=ve;
-            return;
-          }
-          function dzest(){
-            let at=document.getElementById("atslega").value;
-            delete objekts [at];
-             return;
-          }
-        </script>
+      <script type="text/javascript">
+        var objekts = {};
+        function pievienot() {
+          let at = document.getElementById("atslega").value;
+          let ve = document.getElementById("vertiba").value;
+          objekts[at] = ve;
+          return;
+        }
+        function dzest() {
+          let at = document.getElementById("atslega").value;
+          delete objekts[at];
+          return;
+        }
+        function drukat() {
+          document.getElementById("root").innerHTML = JSON.stringify(objekts);
+        }
+      </script>
+
       <h3>Noderīgas saites</h3>
       <ul>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_new">MDN Objekti</a></li>
-        <li><a href="https://www.w3schools.com/js/js_objects.asp" target="_new">w3s Objekti</a></li>
+        <li>
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object"
+            target="_new"
+            >MDN Objekti</a
+          >
+        </li>
+        <li>
+          <a href="https://www.w3schools.com/js/js_objects.asp" target="_new"
+            >w3s Objekti</a
+          >
+        </li>
       </ul>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
