@@ -29,6 +29,9 @@
     <p>
       <button class="col-md-auto btn btn-success" onClick="pievienot()">Pievienot</button>
     </p>
+    <p>
+        <button class="col-md-auto btn btn-success" onClick="dzest()">Noņemt</button>
+      </p>
     <div id="info">
         <script type="text/javascript" >
           var objekts = {};
@@ -37,6 +40,11 @@
             let ve=document.getElementById("vertiba").value;
             objekts[at]=ve;
             return;
+          }
+          function dzest(){
+            let at=document.getElementById("atslega").value;
+            delete objekts [at];
+             return;
           }
         </script>
       <h3>Noderīgas saites</h3>
