@@ -5,9 +5,7 @@
     <meta charset="utf8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../../styles.css">
-    <script type="text/javascript" >
-      var objekts = {};
-    </script>
+    
   </head>
   <body class="container">
     <div id="task">
@@ -20,7 +18,27 @@
     </div>
     <div id="root">
     </div>
+    <p>
+      Atslega<input class="col-md-3 form-control" id="atslega" type="text" value="vards" />
+      
+    </p>
+    <p>
+      Vertiba<input class="col-md-3 form-control" id="vertiba" type="text" value="Laila"/>
+      
+    </p>
+    <p>
+      <button class="col-md-auto btn btn-success" onClick="pievienot()">Pievienot</button>
+    </p>
     <div id="info">
+        <script type="text/javascript" >
+          var objekts = {};
+          function pievienot(){
+            let at=document.getElementById("atslega").value;
+            let ve=document.getElementById("vertiba").value;
+            objekts[at]=ve;
+            return;
+          }
+        </script>
       <h3>Noderīgas saites</h3>
       <ul>
         <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_new">MDN Objekti</a></li>
